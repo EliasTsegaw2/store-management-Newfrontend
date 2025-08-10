@@ -99,8 +99,8 @@ const MaintenanceSection: React.FC = () => {
     fetchMaintenance();
   }, []);
 
-  // Filter the data based on search and status
-  const filteredData = (maintenance ?? []).filter(item =>
+  // Filter the data based on search and status, ensuring maintenance is always an array
+  const filteredData = (Array.isArray(maintenance) ? maintenance : []).filter(item =>
     (item.item?.name?.toLowerCase().includes(search.toLowerCase()) ||
       item.item?.model?.toLowerCase().includes(search.toLowerCase())) &&
     (status === 'All' || item.actions === status)

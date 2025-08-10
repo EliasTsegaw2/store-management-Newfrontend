@@ -250,7 +250,8 @@ const StoreManagerPage: React.FC = () => {
                 const res = await axios.get<ApprovedRequest[]>('/api/requests/approved', {
                     headers: { Authorization: `Bearer ${token}` },
                 });
-                const sorted = res.data.sort((a, b) => Number(a.dispatched) - Number(b.dispatched));
+                const data = Array.isArray(res.data) ? res.data : [];
+                const sorted = data.sort((a, b) => Number(a.dispatched) - Number(b.dispatched));
                 setApprovedRequests(sorted);
             } catch (err) {
                 console.error('Failed to load approved requests:', err);
